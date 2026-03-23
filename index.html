@@ -3,78 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placeholder 1 - Tennis Club</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Garden Tennis Club | Premium Tennis Experience</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
     <nav class="navbar">
-        <div class="logo">PLACEHOLDER 1</div>
-        <button class="nav-toggle" aria-label="Toggle navigation">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-        <ul class="nav-links">
-            <li><a href="#about">Placeholder 2</a></li>
-            <li><a href="#courts">Placeholder 3</a></li>
-            <li><a href="#join">Placeholder 4</a></li>
-        </ul>
+        <div class="nav-container">
+            <a href="#home" class="brand">
+                <img class="brand-mark" src="assets/WhatsApp%20Image%202026-03-23%20at%207.51.36%20PM.jpeg" alt="Garden Tennis Club logo">
+                <div class="brand-copy">
+                    <span class="brand-name">Garden Tennis Club</span>
+                    <span class="brand-tag">Private courts. Refined play.</span>
+                </div>
+            </a>
+
+            <button class="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Programs</a></li>
+                <li><a href="#about" class="nav-link">Club</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <h1 class="glitch" data-text="SERVE IT.">SERVE IT.</h1>
-            <h1 class="glitch SMASH" data-text="SMASH IT.">SMASH IT.</h1>
-            <p class="hero-subtext">Placeholder 2 - The ultimate tennis experience.</p>
-            <button class="cta-btn magnetic-btn">Placeholder 3</button>
-        </div>
-        <div class="hero-bg"></div>
-    </header>
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-video-shell" aria-hidden="true">
+                <video class="hero-video hero-video-desktop" autoplay muted loop playsinline preload="auto">
+                    <source src="assets/WhatsApp%20Video%202026-03-21%20at%203.04.15%20PM.mp4" type="video/mp4">
+                </video>
+                <video class="hero-video hero-video-mobile" autoplay muted loop playsinline preload="auto">
+                    <source src="assets/mobile%20ported%20video.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-overlay"></div>
+            </div>
 
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2 class="section-title reveal-text">Placeholder 3</h2>
-            <div class="about-grid">
-                <div class="about-card stagger-card">
-                    <h3>Placeholder 4</h3>
-                    <p>Placeholder 5 text goes here. We will fill this up later with cool tennis details.</p>
+            <div class="container hero-layout">
+                <div class="hero-copy reveal">
+                    <span class="eyebrow">Garden Tennis Club</span>
+                    <h1 class="hero-title">A calmer, sharper tennis experience.</h1>
+                    <p class="hero-subtitle">
+                        Premium courts, structured coaching, and a club atmosphere built for members who want quality without noise.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-primary">Book a Visit</a>
+                        <a href="#services" class="btn btn-secondary">View Programs</a>
+                    </div>
                 </div>
-                <div class="about-card stagger-card">
-                    <h3>Placeholder 4</h3>
-                    <p>Placeholder 5 text goes here. We will fill this up later with cool tennis details.</p>
+
+                <aside class="hero-panel reveal">
+                    <div class="hero-panel-top">
+                        <p class="panel-label">Club Standard</p>
+                        <p class="panel-text">Designed to feel private, polished, and performance-led from the first session.</p>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <strong>10</strong>
+                            <span>maintained courts</span>
+                        </div>
+                        <div class="hero-stat">
+                            <strong>20+</strong>
+                            <span>experienced coaches</span>
+                        </div>
+                        <div class="hero-stat">
+                            <strong>500+</strong>
+                            <span>active members</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="services" class="section services">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">Programs</span>
+                    <h2 class="section-title">Training built with more discipline and less clutter.</h2>
+                    <p class="section-subtitle">Every program is shaped to feel structured, elevated, and clearly worth the time spent on court.</p>
                 </div>
-                <div class="about-card stagger-card">
-                    <h3>Placeholder 4</h3>
-                    <p>Placeholder 5 text goes here. We will fill this up later with cool tennis details.</p>
+
+                <div class="services-grid">
+                    <article class="service-card reveal">
+                        <span class="card-kicker">01</span>
+                        <h3>Private Coaching</h3>
+                        <p>One-to-one sessions focused on technique, tactical decisions, movement, and match discipline.</p>
+                    </article>
+
+                    <article class="service-card reveal">
+                        <span class="card-kicker">02</span>
+                        <h3>Small Group Clinics</h3>
+                        <p>High-quality group sessions with better coach attention, sharper drills, and consistent progression.</p>
+                    </article>
+
+                    <article class="service-card reveal">
+                        <span class="card-kicker">03</span>
+                        <h3>Fitness and Recovery</h3>
+                        <p>Conditioning, agility, and recovery support that complements performance instead of exhausting it.</p>
+                    </article>
+
+                    <article class="service-card reveal">
+                        <span class="card-kicker">04</span>
+                        <h3>Competitive Play</h3>
+                        <p>Internal ladders, curated matchplay, and seasonal events for members who want meaningful competition.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="parallax-divider" class="parallax-section">
-        <h2 class="parallax-text">ACE YOUR GAME</h2>
-    </section>
+        <section id="about" class="section about">
+            <div class="container about-layout">
+                <div class="about-media reveal">
+                    <img src="assets/WhatsApp%20Image%202026-03-23%20at%207.51.36%20PM.jpeg" alt="Garden Tennis Club crest" class="about-image">
+                    <div class="media-caption">
+                        <span>Garden Tennis Club</span>
+                        <p>Focused on great courts, serious coaching, and a quieter kind of luxury.</p>
+                    </div>
+                </div>
 
-    <section id="join" class="join-section">
-        <div class="container">
-            <h2 class="section-title reveal-text">Placeholder 5</h2>
-            <div class="join-content">
-                <button class="cta-btn huge-btn magnetic-btn">JOIN PLACEHOLDER 1</button>
+                <div class="about-copy reveal">
+                    <span class="eyebrow">The Club</span>
+                    <h2 class="section-title">A premium club should feel composed, not over-designed.</h2>
+                    <p class="about-text">
+                        Garden Tennis Club brings together strong coaching, elegant surroundings, and a membership culture that values quality over noise.
+                    </p>
+                    <div class="about-points">
+                        <div class="about-point">
+                            <strong>Private atmosphere</strong>
+                            <p>Clean design, quieter spaces, and a more considered on-site experience.</p>
+                        </div>
+                        <div class="about-point">
+                            <strong>Performance focus</strong>
+                            <p>Every session and facility choice supports better training and better match preparation.</p>
+                        </div>
+                        <div class="about-point">
+                            <strong>Member-first access</strong>
+                            <p>Flexible programs, reliable scheduling, and consistent standards across the club.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <p>&copy; 2026 Placeholder 1 Tennis Club. All rights reserved.</p>
+        <section id="experience" class="section experience">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">Experience</span>
+                    <h2 class="section-title">Everything now feels more selective and intentional.</h2>
+                    <p class="section-subtitle">Instead of filler content and flashy animation, the site now sells atmosphere, standards, and trust.</p>
+                </div>
+
+                <div class="experience-grid">
+                    <article class="experience-card reveal">
+                        <span class="experience-tag">Courts</span>
+                        <h3>Championship surfaces</h3>
+                        <p>Professional-grade courts maintained for consistency, comfort, and year-round play.</p>
+                    </article>
+
+                    <article class="experience-card reveal experience-card-featured">
+                        <span class="experience-tag">Membership</span>
+                        <h3>Elegant club rhythm</h3>
+                        <p>Training, social play, and recovery spaces are presented as one premium system rather than disconnected sections.</p>
+                    </article>
+
+                    <article class="experience-card reveal">
+                        <span class="experience-tag">Coaching</span>
+                        <h3>Sharper development</h3>
+                        <p>Less generic messaging, more confidence in the standards, structure, and coaching philosophy.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact">
+            <div class="container contact-layout">
+                <div class="contact-copy reveal">
+                    <span class="eyebrow">Contact</span>
+                    <h2 class="section-title">Visit the club and see the difference in person.</h2>
+                    <div class="contact-list">
+                        <div class="contact-item">
+                            <span class="contact-label">Location</span>
+                            <p>Garden Tennis Club, 123 Court Street</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Phone</span>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Email</span>
+                            <p>info@gardentennisclub.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Hours</span>
+                            <p>Mon-Fri 6AM-10PM | Sat-Sun 7AM-9PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form reveal">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea rows="5" placeholder="Tell us what kind of coaching or court access you are looking for." required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Enquiry</button>
+                    <p class="form-note">We usually respond within one business day.</p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>&copy; 2026 Garden Tennis Club. All rights reserved.</p>
+            <a href="#home" class="footer-link">Back to top</a>
+        </div>
     </footer>
 
-    <!-- GSAP for advanced animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
