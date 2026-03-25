@@ -17,6 +17,19 @@ const githubBackend = {
     branch: 'main'
 };
 
+function routeIdentityTokenToAdmin() {
+    const hash = window.location.hash || '';
+    const search = window.location.search || '';
+    const tokenPattern = /(invite_token|recovery_token|confirmation_token|email_change_token)/;
+    const hasIdentityToken = tokenPattern.test(hash) || tokenPattern.test(search);
+
+    if (!hasIdentityToken) return;
+    if (window.location.pathname === '/admin/index.html') return;
+
+    const suffix = `${search}${hash}`;
+    window.location.replace(`/admin/index.html${suffix}`);
+}
+
 function setNavbarState() {
     if (!navbar) return;
     navbar.classList.toggle('scrolled', window.scrollY > 24);
@@ -326,6 +339,7 @@ async function loadGalleryPreview(count) {
 }
 
 async function boot() {
+    routeIdentityTokenToAdmin();
     initNavbar();
     initReveal();
     initHeroVideo();

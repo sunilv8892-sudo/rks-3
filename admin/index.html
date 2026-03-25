@@ -10,13 +10,27 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
         if (window.netlifyIdentity) {
+            function getIdentityView() {
+                const hash = window.location.hash || '';
+                const search = window.location.search || '';
+                const source = `${search}${hash}`;
+
+                if (/recovery_token/.test(source)) return 'recovery';
+                if (/(invite_token|confirmation_token|email_change_token)/.test(source)) return 'signup';
+                return 'login';
+            }
+
             window.netlifyIdentity.on('init', function(user) {
                 if (!user) {
-                    window.netlifyIdentity.open('login');
+                    window.netlifyIdentity.open(getIdentityView());
                 }
             });
 
             window.netlifyIdentity.on('login', function() {
+                window.netlifyIdentity.close();
+            });
+
+            window.netlifyIdentity.on('signup', function() {
                 window.netlifyIdentity.close();
             });
         }
