@@ -12,24 +12,14 @@
             <section class="admin-card">
                 <span class="eyebrow">Content Management</span>
                 <h1 class="section-title">Garden Tennis Club CMS</h1>
-                <p class="section-subtitle">Sign in with Netlify Identity to edit pages, committee members, and gallery items.</p>
+                <p class="section-subtitle">Redirecting to the CMS admin path...</p>
                 <p><a class="btn btn-primary" href="admin/">Open Folder Admin</a></p>
             </section>
         </div>
     </main>
 
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", function (user) {
-                if (!user) {
-                    window.netlifyIdentity.on("login", function () {
-                        document.location.href = "/admin/";
-                    });
-                }
-            });
-        }
+        window.location.replace('/admin/');
     </script>
 </body>
 </html>
