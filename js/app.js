@@ -12,7 +12,10 @@ const pageContentMap = {
     contact: 'content/contact.md'
 };
 
-let githubBackend = null;
+const githubBackend = {
+    repo: 'sunilv8892-sudo/rks-3',
+    branch: 'main'
+};
 
 function setNavbarState() {
     if (!navbar) return;
@@ -183,29 +186,6 @@ async function fetchText(path) {
     return response.text();
 }
 
-async function detectGithubBackend() {
-    if (githubBackend) return githubBackend;
-
-    try {
-        const configRaw = await fetchText('admin/config.yml');
-        const repoMatch = configRaw.match(/site_content_source:\s*[\s\S]*?repo:\s*([^\n\r]+)/)
-            || configRaw.match(/repo:\s*([^\n\r]+)/);
-        const branchMatch = configRaw.match(/site_content_source:\s*[\s\S]*?branch:\s*([^\n\r]+)/)
-            || configRaw.match(/branch:\s*([^\n\r]+)/);
-
-        if (!repoMatch) return null;
-
-        githubBackend = {
-            repo: repoMatch[1].trim(),
-            branch: branchMatch ? branchMatch[1].trim() : 'main'
-        };
-    } catch (error) {
-        githubBackend = null;
-    }
-
-    return githubBackend;
-}
-
 async function loadPageContent(pageKey) {
     const path = pageContentMap[pageKey];
     if (!path) return;
@@ -283,10 +263,7 @@ function renderGallery(items) {
 }
 
 async function fetchGithubCollection(folder) {
-    const backend = await detectGithubBackend();
-    if (!backend) return [];
-
-    const url = `https://api.github.com/repos/${backend.repo}/contents/${folder}?ref=${backend.branch}`;
+    const url = `https://api.github.com/repos/${githubBackend.repo}/contents/${folder}?ref=${githubBackend.branch}`;
     const response = await fetch(url, { cache: 'no-cache' });
     if (!response.ok) {
         throw new Error(`Failed to list ${folder} from GitHub`);

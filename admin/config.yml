@@ -2,10 +2,6 @@ backend:
   name: git-gateway
   branch: main
 
-site_content_source:
-  repo: sunilv8892-sudo/rks-3
-  branch: main
-
 media_folder: images/uploads
 public_folder: /images/uploads
 
