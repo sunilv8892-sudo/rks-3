@@ -390,6 +390,114 @@ textarea {
     padding: 6.5rem 0;
 }
 
+.page-main {
+    padding-top: 0;
+}
+
+.page-hero {
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+        linear-gradient(135deg, #0d1f15 0%, #153325 52%, #0b1a12 100%);
+}
+
+.page-hero .hero-video-overlay {
+    background:
+        linear-gradient(180deg, rgba(8, 17, 12, 0.38) 0%, rgba(8, 17, 12, 0.74) 100%),
+        radial-gradient(circle at 14% 14%, rgba(200, 169, 106, 0.18), transparent 30%);
+}
+
+.page-hero-layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    gap: 1.6rem;
+    align-items: end;
+    padding: 8.4rem 0 3.3rem;
+}
+
+.page-hero .hero-title {
+    max-width: 14ch;
+    color: #fff4db;
+    text-shadow: 0 8px 28px rgba(0, 0, 0, 0.24);
+}
+
+.page-hero .hero-subtitle {
+    color: rgba(255, 255, 255, 0.84);
+    max-width: 54ch;
+}
+
+.page-hero .hero-panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.content-wrap {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid-two,
+.grid-three {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.grid-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.content-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(23, 53, 38, 0.14);
+    background: linear-gradient(180deg, rgba(255, 251, 245, 0.96) 0%, rgba(246, 240, 230, 0.92) 100%);
+    box-shadow: var(--shadow);
+    padding: 1.35rem;
+}
+
+.content-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(200, 169, 106, 0.12), transparent 36%, rgba(23, 53, 38, 0.06) 100%);
+}
+
+.content-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.content-card h3 {
+    color: var(--brand);
+    margin-bottom: 0.6rem;
+}
+
+.content-rich,
+.text-muted {
+    color: var(--muted);
+}
+
+.content-rich p {
+    margin-bottom: 0.7rem;
+}
+
+.content-rich ul {
+    padding-left: 1.1rem;
+}
+
+.content-rich li {
+    margin-bottom: 0.3rem;
+}
+
 .section-heading {
     max-width: 46rem;
     margin-bottom: 3rem;
@@ -825,6 +933,12 @@ textarea {
         grid-template-columns: 1fr;
     }
 
+    .page-hero-layout,
+    .grid-three,
+    .grid-two {
+        grid-template-columns: 1fr;
+    }
+
     .committee-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -896,6 +1010,11 @@ textarea {
     .hero-layout {
         padding: 8rem 0 3rem;
         gap: 1.2rem;
+    }
+
+    .page-hero-layout {
+        padding: 7.8rem 0 2.7rem;
+        gap: 1rem;
     }
 
     .hero-title {
