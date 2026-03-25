@@ -6,10 +6,10 @@
     <title>Garden Tennis Club | Premium Tennis Experience</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="home">
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#home" class="brand">
+            <a href="index.html" class="brand">
                 <img class="brand-mark" src="assets/WhatsApp%20Image%202026-03-23%20at%207.51.36%20PM.jpeg" alt="Garden Tennis Club logo">
                 <div class="brand-copy">
                     <span class="brand-name">Garden Tennis Club</span>
@@ -24,11 +24,14 @@
             </button>
 
             <ul class="nav-links">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#services" class="nav-link">Programs</a></li>
-                <li><a href="#about" class="nav-link">Club</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+                <li><a href="facilities.html" class="nav-link">Facilities</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="committee.html" class="nav-link">Committee</a></li>
+                <li><a href="terms.html" class="nav-link">Terms</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="admin/" class="nav-link">Admin</a></li>
             </ul>
         </div>
     </nav>
@@ -48,8 +51,8 @@
             <div class="container hero-layout">
                 <div class="hero-copy reveal">
                     <span class="eyebrow">Garden Tennis Club</span>
-                    <h1 class="hero-title">A calmer, sharper tennis experience.</h1>
-                    <p class="hero-subtitle">
+                    <h1 id="home-title" class="hero-title">A calmer, sharper tennis experience.</h1>
+                    <p id="home-content" class="hero-subtitle">
                         Premium courts, structured coaching, and a club atmosphere built for members who want quality without noise.
                     </p>
                     <div class="hero-actions">
@@ -181,6 +184,42 @@
             </div>
         </section>
 
+        <section id="home-gallery" class="section">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">Gallery</span>
+                    <h2 class="section-title">Moments from training and events.</h2>
+                    <p class="section-subtitle">Latest club visuals managed from CMS.</p>
+                </div>
+
+                <div id="gallery-grid" class="gallery-grid">
+                    <div class="loading">Loading gallery...</div>
+                </div>
+
+                <div class="hero-actions" style="margin-top: 1.2rem;">
+                    <a href="gallery.html" class="btn btn-secondary">View Full Gallery</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="home-committee" class="section">
+            <div class="container">
+                <div class="section-heading reveal">
+                    <span class="eyebrow">Committee</span>
+                    <h2 class="section-title">Leadership guiding the club.</h2>
+                    <p class="section-subtitle">Profiles are updated through the admin panel.</p>
+                </div>
+
+                <div id="committee-grid" class="committee-grid">
+                    <div class="loading">Loading committee...</div>
+                </div>
+
+                <div class="hero-actions" style="margin-top: 1.2rem;">
+                    <a href="committee.html" class="btn btn-secondary">Meet Full Committee</a>
+                </div>
+            </div>
+        </section>
+
         <section id="contact" class="section contact">
             <div class="container contact-layout">
                 <div class="contact-copy reveal">
@@ -224,6 +263,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>

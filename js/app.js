@@ -217,9 +217,16 @@ async function loadPageContent(pageKey) {
         const raw = await fetchText(path);
         const { data, body } = parseFrontmatter(raw);
         const bodyHtml = markdownToHtml(body);
+        const bodyText = body.replace(/\r/g, '').split('\n').filter(Boolean).join(' ').trim();
 
         if (titleEl && data.title) titleEl.textContent = data.title;
-        if (contentEl && bodyHtml) contentEl.innerHTML = bodyHtml;
+        if (contentEl && bodyHtml) {
+            if (contentEl.tagName === 'P') {
+                contentEl.textContent = bodyText;
+            } else {
+                contentEl.innerHTML = bodyHtml;
+            }
+        }
 
         const termsEl = document.getElementById('terms-content');
         if (termsEl && bodyHtml) termsEl.innerHTML = bodyHtml;
@@ -316,6 +323,31 @@ async function loadGallery() {
     }
 }
 
+function limitItems(items, count) {
+    if (!Number.isFinite(count) || count <= 0) return items;
+    return items.slice(0, count);
+}
+
+async function loadCommitteePreview(count) {
+    try {
+        const items = await fetchGithubCollection('content/committee');
+        renderCommittee(limitItems(items, count));
+    } catch (error) {
+        console.error('Failed to load committee preview:', error);
+        renderCommittee([]);
+    }
+}
+
+async function loadGalleryPreview(count) {
+    try {
+        const items = await fetchGithubCollection('content/gallery');
+        renderGallery(limitItems(items, count));
+    } catch (error) {
+        console.error('Failed to load gallery preview:', error);
+        renderGallery([]);
+    }
+}
+
 async function boot() {
     initNavbar();
     initReveal();
@@ -324,6 +356,12 @@ async function boot() {
     await loadPageContent(page);
     if (page === 'committee') await loadCommittee();
     if (page === 'gallery') await loadGallery();
+    if (page === 'home') {
+        await Promise.all([
+            loadGalleryPreview(6),
+            loadCommitteePreview(4)
+        ]);
+    }
 }
 
 boot().catch((error) => {
