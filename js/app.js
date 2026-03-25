@@ -1,0 +1,331 @@
+const page = document.body.dataset.page || 'home';
+const navbar = document.querySelector('.navbar');
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+const defaultImage = 'assets/WhatsApp%20Image%202026-03-23%20at%207.51.36%20PM.jpeg';
+
+const pageContentMap = {
+    home: 'content/home.md',
+    about: 'content/about.md',
+    facilities: 'content/facilities.md',
+    terms: 'content/terms.md',
+    contact: 'content/contact.md'
+};
+
+let githubBackend = null;
+
+function setNavbarState() {
+    if (!navbar) return;
+    navbar.classList.toggle('scrolled', window.scrollY > 24);
+}
+
+function initNavbar() {
+    setNavbarState();
+    window.addEventListener('scroll', setNavbarState, { passive: true });
+
+    if (!hamburger || !navLinks) return;
+    hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('is-open');
+        hamburger.classList.toggle('is-active', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.querySelectorAll('.nav-link').forEach((link) => {
+        if (link.getAttribute('href') === `${page}.html`) {
+            link.classList.add('active');
+        }
+
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('is-open');
+            hamburger.classList.remove('is-active');
+            hamburger.setAttribute('aria-expanded', 'false');
+        });
+    });
+}
+
+function initReveal() {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.16,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach((element) => {
+        revealObserver.observe(element);
+    });
+}
+
+function initHeroVideo() {
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    const heroVideoDesktop = document.querySelector('.hero-video-desktop');
+    const heroVideoMobile = document.querySelector('.hero-video-mobile');
+    if (!heroVideoDesktop || !heroVideoMobile) return;
+
+    const syncHeroVideo = () => {
+        const activeVideo = mobileQuery.matches ? heroVideoMobile : heroVideoDesktop;
+        const inactiveVideo = mobileQuery.matches ? heroVideoDesktop : heroVideoMobile;
+
+        [heroVideoDesktop, heroVideoMobile].forEach((video) => video.pause());
+        inactiveVideo.currentTime = 0;
+
+        const playPromise = activeVideo.play();
+        if (playPromise && playPromise.catch) playPromise.catch(() => {});
+    };
+
+    syncHeroVideo();
+    if (mobileQuery.addEventListener) {
+        mobileQuery.addEventListener('change', syncHeroVideo);
+    } else {
+        mobileQuery.addListener(syncHeroVideo);
+    }
+}
+
+function markdownInline(input) {
+    return input
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
+}
+
+function markdownToHtml(markdown) {
+    const lines = markdown.replace(/\r/g, '').split('\n');
+    const html = [];
+    let listOpen = false;
+
+    const closeList = () => {
+        if (listOpen) {
+            html.push('</ul>');
+            listOpen = false;
+        }
+    };
+
+    lines.forEach((line) => {
+        const trimmed = line.trim();
+
+        if (!trimmed) {
+            closeList();
+            return;
+        }
+
+        if (trimmed.startsWith('### ')) {
+            closeList();
+            html.push(`<h3>${markdownInline(trimmed.slice(4))}</h3>`);
+            return;
+        }
+
+        if (trimmed.startsWith('## ')) {
+            closeList();
+            html.push(`<h2>${markdownInline(trimmed.slice(3))}</h2>`);
+            return;
+        }
+
+        if (trimmed.startsWith('# ')) {
+            closeList();
+            html.push(`<h1>${markdownInline(trimmed.slice(2))}</h1>`);
+            return;
+        }
+
+        if (trimmed.startsWith('- ')) {
+            if (!listOpen) {
+                html.push('<ul>');
+                listOpen = true;
+            }
+            html.push(`<li>${markdownInline(trimmed.slice(2))}</li>`);
+            return;
+        }
+
+        closeList();
+        html.push(`<p>${markdownInline(trimmed)}</p>`);
+    });
+
+    closeList();
+    return html.join('');
+}
+
+function parseFrontmatter(rawContent) {
+    const normalized = rawContent.replace(/\r/g, '');
+    if (!normalized.startsWith('---\n')) {
+        return { data: {}, body: normalized.trim() };
+    }
+
+    const parts = normalized.split('\n---\n');
+    if (parts.length < 2) {
+        return { data: {}, body: normalized.trim() };
+    }
+
+    const yaml = parts[0].replace(/^---\n/, '');
+    const body = parts.slice(1).join('\n---\n').trim();
+    const data = {};
+
+    yaml.split('\n').forEach((line) => {
+        const index = line.indexOf(':');
+        if (index === -1) return;
+        const key = line.slice(0, index).trim();
+        let value = line.slice(index + 1).trim();
+        value = value.replace(/^"|"$/g, '').replace(/^'|'$/g, '');
+        data[key] = value;
+    });
+
+    return { data, body };
+}
+
+async function fetchText(path) {
+    const response = await fetch(path, { cache: 'no-cache' });
+    if (!response.ok) {
+        throw new Error(`Failed to load ${path}`);
+    }
+    return response.text();
+}
+
+async function detectGithubBackend() {
+    if (githubBackend) return githubBackend;
+
+    try {
+        const configRaw = await fetchText('admin/config.yml');
+        const repoMatch = configRaw.match(/site_content_source:\s*[\s\S]*?repo:\s*([^\n\r]+)/)
+            || configRaw.match(/repo:\s*([^\n\r]+)/);
+        const branchMatch = configRaw.match(/site_content_source:\s*[\s\S]*?branch:\s*([^\n\r]+)/)
+            || configRaw.match(/branch:\s*([^\n\r]+)/);
+
+        if (!repoMatch) return null;
+
+        githubBackend = {
+            repo: repoMatch[1].trim(),
+            branch: branchMatch ? branchMatch[1].trim() : 'main'
+        };
+    } catch (error) {
+        githubBackend = null;
+    }
+
+    return githubBackend;
+}
+
+async function loadPageContent(pageKey) {
+    const path = pageContentMap[pageKey];
+    if (!path) return;
+
+    const titleEl = document.getElementById('page-title') || document.getElementById('home-title');
+    const contentEl = document.getElementById('page-content') || document.getElementById('home-content');
+
+    try {
+        const raw = await fetchText(path);
+        const { data, body } = parseFrontmatter(raw);
+        const bodyHtml = markdownToHtml(body);
+
+        if (titleEl && data.title) titleEl.textContent = data.title;
+        if (contentEl && bodyHtml) contentEl.innerHTML = bodyHtml;
+
+        const termsEl = document.getElementById('terms-content');
+        if (termsEl && bodyHtml) termsEl.innerHTML = bodyHtml;
+
+        const aboutEl = document.getElementById('about-extra');
+        if (aboutEl && bodyHtml) aboutEl.innerHTML = bodyHtml;
+
+        const detailsEl = document.getElementById('contact-details');
+        if (detailsEl && bodyHtml) detailsEl.innerHTML = bodyHtml;
+    } catch (error) {
+        console.error('Failed to load page content:', error);
+    }
+}
+
+function renderCommittee(items) {
+    const container = document.getElementById('committee-grid');
+    if (!container) return;
+
+    if (!items.length) {
+        container.innerHTML = '<div class="loading">No committee members yet.</div>';
+        return;
+    }
+
+    container.innerHTML = items.map((item) => `
+        <article class="committee-card reveal">
+            <img src="${item.photo || defaultImage}" alt="${item.name || 'Committee member'}">
+            <div class="member-body">
+                <h3 class="member-name">${item.name || 'Member'}</h3>
+                <p class="member-role">${item.role || ''}</p>
+            </div>
+        </article>
+    `).join('');
+
+    initReveal();
+}
+
+function renderGallery(items) {
+    const container = document.getElementById('gallery-grid');
+    if (!container) return;
+
+    if (!items.length) {
+        container.innerHTML = '<div class="loading">No gallery images yet.</div>';
+        return;
+    }
+
+    container.innerHTML = items.map((item) => `
+        <article class="gallery-card reveal">
+            <img class="gallery-media" src="${item.image || defaultImage}" alt="Gallery image">
+            <p class="gallery-caption">${item.caption || ''}</p>
+        </article>
+    `).join('');
+
+    initReveal();
+}
+
+async function fetchGithubCollection(folder) {
+    const backend = await detectGithubBackend();
+    if (!backend) return [];
+
+    const url = `https://api.github.com/repos/${backend.repo}/contents/${folder}?ref=${backend.branch}`;
+    const response = await fetch(url, { cache: 'no-cache' });
+    if (!response.ok) {
+        throw new Error(`Failed to list ${folder} from GitHub`);
+    }
+
+    const files = await response.json();
+    const markdownFiles = files.filter((item) => item.type === 'file' && item.name.endsWith('.md'));
+    const records = await Promise.all(markdownFiles.map(async (item) => {
+        const raw = await fetch(item.download_url, { cache: 'no-cache' }).then((res) => res.text());
+        const parsed = parseFrontmatter(raw);
+        return { id: item.name, ...parsed.data };
+    }));
+
+    return records.sort((a, b) => a.id.localeCompare(b.id));
+}
+
+async function loadCommittee() {
+    try {
+        const items = await fetchGithubCollection('content/committee');
+        renderCommittee(items);
+    } catch (error) {
+        console.error('Failed to load committee:', error);
+        renderCommittee([]);
+    }
+}
+
+async function loadGallery() {
+    try {
+        const items = await fetchGithubCollection('content/gallery');
+        renderGallery(items);
+    } catch (error) {
+        console.error('Failed to load gallery:', error);
+        renderGallery([]);
+    }
+}
+
+async function boot() {
+    initNavbar();
+    initReveal();
+    initHeroVideo();
+
+    await loadPageContent(page);
+    if (page === 'committee') await loadCommittee();
+    if (page === 'gallery') await loadGallery();
+}
+
+boot().catch((error) => {
+    console.error('App initialization failed:', error);
+});

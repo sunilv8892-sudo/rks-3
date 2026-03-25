@@ -1,0 +1,68 @@
+backend:
+  name: git-gateway
+  branch: main
+
+site_content_source:
+  repo: sunilv8892-sudo/rks-3
+  branch: main
+
+media_folder: images/uploads
+public_folder: /images/uploads
+
+publish_mode: simple
+
+collections:
+  - name: committee
+    label: Committee
+    folder: content/committee
+    create: true
+    slug: "{{slug}}"
+    identifier_field: name
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Role, name: role, widget: string }
+      - { label: Photo, name: photo, widget: image }
+
+  - name: gallery
+    label: Gallery
+    folder: content/gallery
+    create: true
+    slug: "{{slug}}"
+    identifier_field: caption
+    fields:
+      - { label: Image, name: image, widget: image }
+      - { label: Caption, name: caption, widget: string }
+
+  - name: pages
+    label: Pages
+    files:
+      - label: Home
+        name: home
+        file: content/home.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Content, name: body, widget: markdown }
+      - label: About Us
+        name: about
+        file: content/about.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Content, name: body, widget: markdown }
+      - label: Facilities
+        name: facilities
+        file: content/facilities.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Content, name: body, widget: markdown }
+      - label: Terms and Conditions
+        name: terms
+        file: content/terms.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Content, name: body, widget: markdown }
+      - label: Contact Us
+        name: contact
+        file: content/contact.md
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Content, name: body, widget: markdown }
