@@ -1,12 +1,6 @@
 [build]
   publish = "."
 
-[[redirects]]
-  from = "/admin"
-  to = "/admin/"
-  status = 301
-  force = true
-
 [[headers]]
   for = "/admin/*"
   [headers.values]
