@@ -633,6 +633,108 @@ textarea {
     border-color: rgba(255, 255, 255, 0.12);
 }
 
+.committee-grid,
+.gallery-grid {
+    display: grid;
+    gap: 1.3rem;
+}
+
+.committee-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.committee-card,
+.gallery-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(23, 53, 38, 0.16);
+    box-shadow: var(--shadow);
+    background: linear-gradient(180deg, rgba(255, 251, 245, 0.96) 0%, rgba(242, 234, 221, 0.92) 100%);
+}
+
+.committee-card {
+    min-height: 21rem;
+}
+
+.committee-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.92) contrast(1.02);
+}
+
+.committee-footer {
+    position: absolute;
+    left: 0.65rem;
+    right: 0.65rem;
+    bottom: 0.65rem;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(16, 35, 24, 0.74) 0%, rgba(10, 23, 15, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(12px);
+    padding: 0.85rem 0.9rem;
+}
+
+.member-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 1.6rem;
+    padding: 0 0.65rem;
+    margin-bottom: 0.45rem;
+    border-radius: 999px;
+    background: rgba(200, 169, 106, 0.18);
+    border: 1px solid rgba(200, 169, 106, 0.4);
+    color: #f6dfb4;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.member-name {
+    color: #fff4dc;
+    line-height: 1.15;
+    margin-bottom: 0.2rem;
+    font-size: 1.1rem;
+}
+
+.member-role {
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.88rem;
+}
+
+.gallery-card {
+    padding: 0.65rem;
+}
+
+.gallery-media {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.gallery-caption {
+    margin-top: 0.75rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0 0.1rem 0.3rem;
+}
+
+.loading {
+    border-radius: var(--radius-sm);
+    border: 1px dashed rgba(23, 53, 38, 0.24);
+    background: rgba(255, 255, 255, 0.56);
+    color: var(--brand-soft);
+    padding: 1rem;
+    text-align: center;
+}
+
 .contact-form input,
 .contact-form textarea {
     width: 100%;
@@ -723,6 +825,14 @@ textarea {
         grid-template-columns: 1fr;
     }
 
+    .committee-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .hero-layout {
         align-items: end;
     }
@@ -805,6 +915,11 @@ textarea {
     .hero-stats,
     .services-grid,
     .experience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .committee-grid,
+    .gallery-grid {
         grid-template-columns: 1fr;
     }
 

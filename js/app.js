@@ -245,8 +245,9 @@ function renderCommittee(items) {
 
     container.innerHTML = items.map((item) => `
         <article class="committee-card reveal">
-            <img src="${item.photo || defaultImage}" alt="${item.name || 'Committee member'}">
-            <div class="member-body">
+            <img class="committee-photo" src="${item.photo || defaultImage}" alt="${item.name || 'Committee member'}">
+            <div class="committee-footer">
+                <span class="member-badge">Committee</span>
                 <h3 class="member-name">${item.name || 'Member'}</h3>
                 <p class="member-role">${item.role || ''}</p>
             </div>
