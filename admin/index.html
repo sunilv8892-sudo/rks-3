@@ -36,6 +36,17 @@
             color: #111;
         }
 
+        .admin-login-fallback a {
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 600;
+            background: #f1c40f;
+            color: #111;
+            text-align: center;
+        }
+
         .admin-login-fallback small {
             color: #d6d6d6;
         }
@@ -43,15 +54,31 @@
 </head>
 <body>
     <div class="admin-login-fallback">
-        <button id="open-login" type="button">Open Login</button>
+        <a id="open-login-link" href="/admin/#/login">Open Login</a>
+        <button id="reload-login" type="button">Reload Login</button>
         <small>If login does not appear automatically, click this button.</small>
     </div>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-        if (window.netlifyIdentity) {
-            const openLoginButton = document.getElementById('open-login');
+        const loginUrl = '/admin/#/login';
+        const openLoginLink = document.getElementById('open-login-link');
+        const reloadLoginButton = document.getElementById('reload-login');
 
+        if (openLoginLink) {
+            openLoginLink.addEventListener('click', function(event) {
+                event.preventDefault();
+                window.location.assign(loginUrl);
+            });
+        }
+
+        if (reloadLoginButton) {
+            reloadLoginButton.addEventListener('click', function() {
+                window.location.replace(loginUrl);
+            });
+        }
+
+        if (window.netlifyIdentity) {
             function ensureLoginHash() {
                 const currentHash = window.location.hash || '';
                 if (!currentHash || currentHash === '#') {
@@ -90,10 +117,6 @@
             window.netlifyIdentity.on('error', function(error) {
                 console.error('Netlify Identity error:', error);
             });
-
-            if (openLoginButton) {
-                openLoginButton.addEventListener('click', openIdentityLogin);
-            }
 
             ensureLoginHash();
 
