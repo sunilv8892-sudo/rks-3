@@ -1,6 +1,6 @@
 ---
 title: Premium facilities
-photo: /images/uploads/screenshot-5-.png
+photo: ""
 ---
 Our courts, training zones, and club spaces are maintained daily to professional standards.
 
