@@ -10,6 +10,21 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
         if (window.netlifyIdentity) {
+            function openCmsHome() {
+                window.location.replace('/admin/#/collections/pages');
+            }
+
+            function shouldNormalizeCmsRoute() {
+                const hash = window.location.hash || '';
+                const search = window.location.search || '';
+                const source = `${search}${hash}`;
+
+                if (!hash || hash === '#') return false;
+                if (/^#\/login/.test(hash)) return true;
+                if (/(invite_token|recovery_token|confirmation_token|email_change_token)/.test(source)) return true;
+                return false;
+            }
+
             function getIdentityView() {
                 const hash = window.location.hash || '';
                 const search = window.location.search || '';
@@ -23,11 +38,17 @@
             window.netlifyIdentity.on('init', function(user) {
                 if (!user) {
                     window.netlifyIdentity.open(getIdentityView());
+                    return;
+                }
+
+                if (shouldNormalizeCmsRoute()) {
+                    openCmsHome();
                 }
             });
 
             window.netlifyIdentity.on('login', function() {
                 window.netlifyIdentity.close();
+                openCmsHome();
             });
 
             window.netlifyIdentity.on('signup', function() {
