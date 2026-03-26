@@ -11,7 +11,9 @@
     <script>
         if (window.netlifyIdentity) {
             function openCmsHome() {
-                window.location.replace('/admin/#/collections/pages');
+                if (window.location.hash !== '#/collections/pages') {
+                    window.location.hash = '/collections/pages';
+                }
             }
 
             function shouldNormalizeCmsRoute() {
