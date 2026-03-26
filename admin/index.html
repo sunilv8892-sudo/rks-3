@@ -10,6 +10,11 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
         if (window.netlifyIdentity) {
+            const currentHash = window.location.hash || '';
+            if (!currentHash || currentHash === '#') {
+                window.location.replace(`${window.location.pathname}${window.location.search}#/login`);
+            }
+
             function getIdentityView() {
                 const hash = window.location.hash || '';
                 const search = window.location.search || '';
@@ -33,6 +38,8 @@
             window.netlifyIdentity.on('signup', function() {
                 window.netlifyIdentity.close();
             });
+
+            window.netlifyIdentity.init();
         }
     </script>
 </body>
