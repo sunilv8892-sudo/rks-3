@@ -29,6 +29,17 @@ collections:
       - { label: Image, name: image, widget: image }
       - { label: Caption, name: caption, widget: string }
 
+  - name: facilities
+    label: Facilities Cards
+    folder: content/facilities
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    fields:
+      - { label: Place Name, name: title, widget: string }
+      - { label: Photo, name: photo, widget: image }
+      - { label: Description, name: description, widget: text }
+
   - name: pages
     label: Pages
     files:
@@ -49,7 +60,6 @@ collections:
         file: content/facilities.md
         fields:
           - { label: Title, name: title, widget: string }
-          - { label: Photo, name: photo, widget: image, required: false }
           - { label: Content, name: body, widget: markdown }
       - label: Terms and Conditions
         name: terms

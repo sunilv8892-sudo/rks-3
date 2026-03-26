@@ -229,21 +229,29 @@ async function loadPageContent(pageKey) {
 
         const detailsEl = document.getElementById('contact-details');
         if (detailsEl && bodyHtml) detailsEl.innerHTML = bodyHtml;
-
-        const facilitiesPhoto = document.getElementById('facilities-photo');
-        const facilitiesPhotoWrap = document.getElementById('facilities-photo-wrap');
-        if (facilitiesPhoto && facilitiesPhotoWrap) {
-            if (data.photo) {
-                facilitiesPhoto.src = data.photo;
-                facilitiesPhoto.alt = data.title ? `${data.title} image` : 'Facilities image';
-                facilitiesPhotoWrap.hidden = false;
-            } else {
-                facilitiesPhotoWrap.hidden = true;
-            }
-        }
     } catch (error) {
         console.error('Failed to load page content:', error);
     }
+}
+
+function renderFacilities(items) {
+    const container = document.getElementById('facilities-grid');
+    if (!container) return;
+
+    if (!items.length) {
+        container.innerHTML = '<div class="loading">No facilities cards yet.</div>';
+        return;
+    }
+
+    container.innerHTML = items.map((item) => `
+        <article class="content-card facility-card reveal">
+            <img class="facility-media" src="${item.photo || defaultImage}" alt="${item.title || 'Facility'}">
+            <h3>${item.title || 'Facility'}</h3>
+            <p class="text-muted facility-text">${item.description || ''}</p>
+        </article>
+    `).join('');
+
+    initReveal();
 }
 
 function renderCommittee(items) {
@@ -326,6 +334,16 @@ async function loadGallery() {
     }
 }
 
+async function loadFacilities() {
+    try {
+        const items = await fetchGithubCollection('content/facilities');
+        renderFacilities(items);
+    } catch (error) {
+        console.error('Failed to load facilities:', error);
+        renderFacilities([]);
+    }
+}
+
 function limitItems(items, count) {
     if (!Number.isFinite(count) || count <= 0) return items;
     return items.slice(0, count);
@@ -360,6 +378,7 @@ async function boot() {
     await loadPageContent(page);
     if (page === 'committee') await loadCommittee();
     if (page === 'gallery') await loadGallery();
+    if (page === 'facilities') await loadFacilities();
     if (page === 'home') {
         await Promise.all([
             loadGalleryPreview(6),
