@@ -4,88 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garden Tennis Club | CMS Admin</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: #0f1116;
-            color: #f4f4f4;
-        }
-
-        .admin-login-fallback {
-            position: fixed;
-            top: 16px;
-            left: 16px;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.65);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .admin-login-fallback button {
-            border: 0;
-            border-radius: 8px;
-            padding: 10px 14px;
-            cursor: pointer;
-            font-weight: 600;
-            background: #f1c40f;
-            color: #111;
-        }
-
-        .admin-login-fallback a {
-            display: inline-block;
-            text-decoration: none;
-            border-radius: 8px;
-            padding: 10px 14px;
-            font-weight: 600;
-            background: #f1c40f;
-            color: #111;
-            text-align: center;
-        }
-
-        .admin-login-fallback small {
-            color: #d6d6d6;
-        }
-    </style>
 </head>
 <body>
-    <div class="admin-login-fallback">
-        <a id="open-login-link" href="/admin/#/login">Open Login</a>
-        <button id="reload-login" type="button">Reload Login</button>
-        <small>If login does not appear automatically, click this button.</small>
-    </div>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-        const loginUrl = '/admin/#/login';
-        const openLoginLink = document.getElementById('open-login-link');
-        const reloadLoginButton = document.getElementById('reload-login');
-
-        if (openLoginLink) {
-            openLoginLink.addEventListener('click', function(event) {
-                event.preventDefault();
-                window.location.assign(loginUrl);
-            });
-        }
-
-        if (reloadLoginButton) {
-            reloadLoginButton.addEventListener('click', function() {
-                window.location.replace(loginUrl);
-            });
-        }
-
         if (window.netlifyIdentity) {
-            function ensureLoginHash() {
-                const currentHash = window.location.hash || '';
-                if (!currentHash || currentHash === '#') {
-                    window.location.hash = '/login';
-                }
-            }
-
             function getIdentityView() {
                 const hash = window.location.hash || '';
                 const search = window.location.search || '';
@@ -96,13 +20,9 @@
                 return 'login';
             }
 
-            function openIdentityLogin() {
-                window.netlifyIdentity.open(getIdentityView());
-            }
-
             window.netlifyIdentity.on('init', function(user) {
                 if (!user) {
-                    openIdentityLogin();
+                    window.netlifyIdentity.open(getIdentityView());
                 }
             });
 
@@ -113,20 +33,6 @@
             window.netlifyIdentity.on('signup', function() {
                 window.netlifyIdentity.close();
             });
-
-            window.netlifyIdentity.on('error', function(error) {
-                console.error('Netlify Identity error:', error);
-            });
-
-            ensureLoginHash();
-
-            window.netlifyIdentity.init();
-
-            setTimeout(function() {
-                if (!window.netlifyIdentity.currentUser()) {
-                    openIdentityLogin();
-                }
-            }, 500);
         }
     </script>
 </body>
