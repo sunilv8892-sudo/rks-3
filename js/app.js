@@ -229,6 +229,18 @@ async function loadPageContent(pageKey) {
 
         const detailsEl = document.getElementById('contact-details');
         if (detailsEl && bodyHtml) detailsEl.innerHTML = bodyHtml;
+
+        const facilitiesPhoto = document.getElementById('facilities-photo');
+        const facilitiesPhotoWrap = document.getElementById('facilities-photo-wrap');
+        if (facilitiesPhoto && facilitiesPhotoWrap) {
+            if (data.photo) {
+                facilitiesPhoto.src = data.photo;
+                facilitiesPhoto.alt = data.title ? `${data.title} image` : 'Facilities image';
+                facilitiesPhotoWrap.hidden = false;
+            } else {
+                facilitiesPhotoWrap.hidden = true;
+            }
+        }
     } catch (error) {
         console.error('Failed to load page content:', error);
     }

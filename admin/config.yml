@@ -49,6 +49,7 @@ collections:
         file: content/facilities.md
         fields:
           - { label: Title, name: title, widget: string }
+          - { label: Photo, name: photo, widget: image, required: false }
           - { label: Content, name: body, widget: markdown }
       - label: Terms and Conditions
         name: terms
