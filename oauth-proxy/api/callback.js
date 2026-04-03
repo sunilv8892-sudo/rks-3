@@ -60,6 +60,57 @@ function renderCallbackPage(status, payload) {
 </html>`;
 }
 
+function renderHelpPage(message) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decap OAuth</title>
+  <style>
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #f6efe4;
+      color: #1f1a17;
+      padding: 24px;
+    }
+    main {
+      max-width: 560px;
+      background: #fffaf2;
+      border: 1px solid rgba(31, 26, 23, 0.12);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 24px 60px rgba(31, 26, 23, 0.12);
+    }
+    p { line-height: 1.65; color: #6f6259; }
+    a {
+      display: inline-flex;
+      margin-top: 16px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(135deg, #8c5a33, #6a3f20);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>OAuth callback</h1>
+    <p>${message}</p>
+    <p>Open the proxy homepage and click Start GitHub Login instead.</p>
+    <a href="/">Go to homepage</a>
+  </main>
+</body>
+</html>`;
+}
+
 async function exchangeCodeForToken({ clientId, clientSecret, code, redirectUri, state }) {
   const response = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
@@ -108,9 +159,9 @@ module.exports = async function callbackHandler(req, res) {
   const code = String(req.query.code || '');
   const returnedState = String(req.query.state || '');
   if (!code) {
-    res.statusCode = 400;
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.end('Missing code');
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.end(renderHelpPage('This endpoint is working, but GitHub did not send an authorization code. That usually means you opened /callback directly instead of coming back from GitHub login.'));
     return;
   }
 
