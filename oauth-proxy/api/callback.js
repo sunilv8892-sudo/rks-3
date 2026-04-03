@@ -35,13 +35,23 @@ function renderCallbackPage(status, payload) {
   <script>
     (function () {
       if (window.opener) {
-        window.opener.postMessage(
-          'authorization:github:${status}:' + ${serializedPayload},
-          '*'
-        );
-        window.setTimeout(function () {
-          window.close();
-        }, 1000);
+        function sendResult() {
+          window.opener.postMessage(
+            'authorization:github:${status}:' + ${JSON.stringify(serializedPayload)},
+            '*'
+          );
+          window.setTimeout(function () {
+            window.close();
+          }, 250);
+        }
+
+        function onMessage() {
+          window.removeEventListener('message', onMessage, false);
+          sendResult();
+        }
+
+        window.addEventListener('message', onMessage, false);
+        window.opener.postMessage('authorizing:github', '*');
       }
     }());
   </script>
