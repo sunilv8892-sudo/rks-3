@@ -10,40 +10,6 @@ function randomState(length = 16) {
   return crypto.randomBytes(length).toString('hex');
 }
 
-function renderAuthPage(authorizeUrl) {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Decap OAuth</title>
-</head>
-<body>
-  <script>
-    (function () {
-      const authorizeUrl = ${JSON.stringify(authorizeUrl)};
-
-      function go() {
-        window.location.href = authorizeUrl;
-      }
-
-      window.addEventListener('message', function onMessage() {
-        window.removeEventListener('message', onMessage, false);
-        go();
-      });
-
-      if (window.opener) {
-        window.opener.postMessage('authorizing:github', '*');
-      } else {
-        go();
-      }
-    }());
-  </script>
-  <p>Authorizing Decap CMS...</p>
-</body>
-</html>`;
-}
-
 module.exports = function authHandler(req, res) {
   if (req.method !== 'GET') {
     res.statusCode = 405;
@@ -74,7 +40,7 @@ module.exports = function authHandler(req, res) {
   const redirectUri = `${origin}/callback`;
   const state = randomState();
 
-  res.statusCode = 200;
+  res.statusCode = 302;
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader(
     'Set-Cookie',
@@ -88,6 +54,6 @@ module.exports = function authHandler(req, res) {
   authorizeUrl.searchParams.set('scope', scope);
   authorizeUrl.searchParams.set('state', state);
 
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.end(renderAuthPage(authorizeUrl.toString()));
+  res.setHeader('Location', authorizeUrl.toString());
+  res.end();
 };
