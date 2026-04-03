@@ -23,6 +23,7 @@ function parseCookies(cookieHeader) {
 
 function renderCallbackPage(status, payload) {
   const serializedPayload = JSON.stringify(payload);
+  const callbackMessage = JSON.stringify(`authorization:github:${status}:${serializedPayload}`);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -35,22 +36,15 @@ function renderCallbackPage(status, payload) {
   <script>
     (function () {
       if (window.opener) {
-        function sendResult() {
-          window.opener.postMessage(
-            'authorization:github:${status}:' + ${serializedPayload},
-            '*'
-          );
+        function receiveMessage() {
+          window.opener.postMessage(${callbackMessage}, '*');
+          window.removeEventListener('message', receiveMessage, false);
           window.setTimeout(function () {
             window.close();
           }, 250);
         }
 
-        function onMessage() {
-          window.removeEventListener('message', onMessage, false);
-          sendResult();
-        }
-
-        window.addEventListener('message', onMessage, false);
+        window.addEventListener('message', receiveMessage, false);
         window.opener.postMessage('authorizing:github', '*');
       }
     }());
