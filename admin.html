@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Tennis Club | Admin Disabled</title>
+    <title>Garden Tennis Club | Admin</title>
+    <meta http-equiv="refresh" content="0; url=/admin/index.html">
     <style>
         body {
             margin: 0;
@@ -41,13 +42,15 @@
             font-weight: 700;
         }
     </style>
+    <script>
+        window.location.replace('/admin/index.html');
+    </script>
 </head>
 <body>
     <main class="card">
-        <h1>CMS Removed</h1>
-        <p>The Decap and OAuth setup has been removed.</p>
-        <p>Update website content directly in the content folder markdown files.</p>
-        <p>Open <a href="content/home.md">content/home.md</a> and other files under <a href="content/">content/</a>.</p>
+        <h1>Opening CMS</h1>
+        <p>Redirecting to admin dashboard.</p>
+        <p>If you are not redirected, open <a href="/admin/index.html">/admin/index.html</a>.</p>
     </main>
 </body>
 </html>

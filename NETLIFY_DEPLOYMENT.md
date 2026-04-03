@@ -1,18 +1,24 @@
-# Deployment Notes
+# Deployment Notes (Vercel + Decap CMS)
 
-The Decap/Netlify CMS stack has been removed.
+## Current setup
+- Hosting: Vercel
+- CMS: Decap at `/admin`
+- Auth: GitHub OAuth using same-domain API routes:
+	- `/api/cms/auth`
+	- `/api/cms/callback`
 
-## Current content workflow
-1. Edit markdown files in the content folder.
-2. Commit and push to GitHub.
-3. Deploy from GitHub to your hosting platform (Vercel in current setup).
+## Deploy flow
+1. Push changes to GitHub.
+2. Vercel auto-deploys from the repository.
+3. Open `/admin` and log in with GitHub.
 
-## Admin status
-- /admin is disabled.
-- admin/config.yml no longer exists.
-- Netlify Identity and Git Gateway are not required.
+## Required environment variables on Vercel
+- `GITHUB_OAUTH_CLIENT_ID`
+- `GITHUB_OAUTH_CLIENT_SECRET`
+- Optional: `GITHUB_OAUTH_SCOPE` (`repo` by default)
 
 ## Verify after deploy
-1. Confirm pages load correctly.
-2. Confirm content changes from content/*.md appear on the site.
-3. Confirm committee and gallery updates from content/committee and content/gallery appear correctly.
+1. Confirm site pages load correctly.
+2. Confirm `/admin` opens Decap login.
+3. Confirm GitHub login returns to Decap dashboard.
+4. Confirm edits from CMS commit to GitHub and appear on site after redeploy.

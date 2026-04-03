@@ -1,6 +1,8 @@
 Content management note:
-- Admin panel is disabled: /admin
+- Admin panel: /admin
+- CMS config file: /admin/config.yml
+- OAuth auth route: /api/cms/auth
+- OAuth callback route: /api/cms/callback
 - Content source: markdown files under /content
-- Committee and gallery entries: /content/committee and /content/gallery
 - Uploaded images: /images/uploads
-- Edit files directly, then commit and push to deploy
+- Editors need GitHub repo write access

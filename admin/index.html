@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Tennis Club | Admin Disabled</title>
+    <title>Garden Tennis Club | CMS Admin</title>
     <style>
         body {
             margin: 0;
@@ -44,10 +44,39 @@
 </head>
 <body>
     <main class="card">
-        <h1>Admin Disabled</h1>
-        <p>The CMS stack has been removed from this project.</p>
-        <p>Edit markdown content files manually in <a href="../content/">content/</a>.</p>
-        <p>Start with <a href="../content/home.md">content/home.md</a>.</p>
+        <h1>Loading CMS</h1>
+        <p>Please wait while the dashboard initializes.</p>
     </main>
+
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+        (async function bootstrapCMS() {
+            try {
+                const response = await fetch('/admin/config.yml', { cache: 'no-cache' });
+                if (!response.ok) {
+                    throw new Error('Could not load /admin/config.yml');
+                }
+
+                const rawConfig = await response.text();
+                const runtimeBaseUrl = window.location.origin;
+
+                const runtimeConfig = rawConfig
+                    .replace('__CMS_BASE_URL__', runtimeBaseUrl)
+                    .replace('__CMS_SITE_DOMAIN__', window.location.hostname);
+
+                window.CMS.init({ config: runtimeConfig });
+            } catch (error) {
+                console.error('Failed to initialize Decap CMS:', error);
+                document.body.innerHTML = '';
+                const box = document.createElement('main');
+                box.className = 'card';
+                box.innerHTML =
+                    '<h1>CMS failed to load</h1>' +
+                    '<p>Check admin/config.yml and API auth endpoints.</p>' +
+                    '<p>Error: ' + (error.message || 'Unknown error') + '</p>';
+                document.body.appendChild(box);
+            }
+        }());
+    </script>
 </body>
 </html>
