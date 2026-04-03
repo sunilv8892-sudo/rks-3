@@ -1,6 +1,10 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: sunilv8892-sudo/rks-3
   branch: main
+  base_url: https://YOUR-OAUTH-PROXY.vercel.app
+  auth_endpoint: /auth
+  site_domain: rks-3
 
 media_folder: images/uploads
 public_folder: /images/uploads
