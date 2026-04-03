@@ -303,12 +303,21 @@ function renderGallery(items) {
         return;
     }
 
-    container.innerHTML = items.map((item) => `
+    container.innerHTML = items.map((item) => {
+        const title = item.title || item.caption || 'Gallery entry';
+        const summary = item.title ? (item.caption || '') : '';
+        const detailsMarkdown = item.body || item.details || '';
+        const detailsHtml = detailsMarkdown ? markdownToHtml(detailsMarkdown) : '';
+
+        return `
         <article class="gallery-card reveal">
-            <img class="gallery-media" src="${item.image || defaultImage}" alt="Gallery image">
-            <p class="gallery-caption">${item.caption || ''}</p>
+            <img class="gallery-media" src="${item.image || defaultImage}" alt="${title}">
+            <h3 class="gallery-title">${title}</h3>
+            ${summary ? `<p class="gallery-caption">${summary}</p>` : ''}
+            ${detailsHtml ? `<div class="gallery-details">${detailsHtml}</div>` : ''}
         </article>
-    `).join('');
+    `;
+    }).join('');
 
     initReveal();
 }
@@ -325,7 +334,7 @@ async function fetchGithubCollection(folder) {
     const records = await Promise.all(markdownFiles.map(async (item) => {
         const raw = await fetch(item.download_url, { cache: 'no-cache' }).then((res) => res.text());
         const parsed = parseFrontmatter(raw);
-        return { id: item.name, ...parsed.data };
+        return { id: item.name, ...parsed.data, body: parsed.body };
     }));
 
     return records.sort((a, b) => a.id.localeCompare(b.id));

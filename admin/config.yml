@@ -70,7 +70,8 @@ collections:
     slug: "{{slug}}"
     identifier_field: caption
     fields:
-      - { label: Image, name: image, widget: image }
+      - { label: Title, name: title, widget: string, required: false }
+      - { label: Image, name: image, widget: image, required: false }
       - { label: Caption, name: caption, widget: string }
       - { label: Notes, name: body, widget: markdown, required: false }
 
