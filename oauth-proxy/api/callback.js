@@ -37,7 +37,7 @@ function renderCallbackPage(status, payload) {
       if (window.opener) {
         function sendResult() {
           window.opener.postMessage(
-            'authorization:github:${status}:' + ${JSON.stringify(serializedPayload)},
+            'authorization:github:${status}:' + ${serializedPayload},
             '*'
           );
           window.setTimeout(function () {
