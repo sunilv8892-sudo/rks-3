@@ -3,22 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Tennis Club | CMS Admin</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Garden Tennis Club | Admin Disabled</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: Georgia, 'Times New Roman', serif;
+            background: #f6efe4;
+            color: #1f1a17;
+        }
+
+        .card {
+            width: min(640px, 100%);
+            padding: 28px;
+            background: #fffaf2;
+            border: 1px solid rgba(31, 26, 23, 0.12);
+            border-radius: 18px;
+            box-shadow: 0 16px 42px rgba(31, 26, 23, 0.1);
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+        }
+
+        p {
+            margin: 0 0 12px;
+            line-height: 1.6;
+            color: #6f6259;
+        }
+
+        a {
+            color: #7c4d2a;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
-    <script>
-        window.location.replace('admin/index.html');
-    </script>
-    <main class="admin-main">
-        <div class="container">
-            <section class="admin-card">
-                <span class="eyebrow">Content Management</span>
-                <h1 class="section-title">Garden Tennis Club CMS</h1>
-                <p class="section-subtitle">Open admin directly using the button below.</p>
-                <p><a class="btn btn-primary" href="admin/index.html">Open CMS Admin</a></p>
-            </section>
-        </div>
+    <main class="card">
+        <h1>CMS Removed</h1>
+        <p>The Decap and OAuth setup has been removed.</p>
+        <p>Update website content directly in the content folder markdown files.</p>
+        <p>Open <a href="content/home.md">content/home.md</a> and other files under <a href="content/">content/</a>.</p>
     </main>
 </body>
 </html>

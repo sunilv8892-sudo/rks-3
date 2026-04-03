@@ -3,9 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Tennis Club | CMS Admin</title>
+    <title>Garden Tennis Club | Admin Disabled</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: Georgia, 'Times New Roman', serif;
+            background: #f6efe4;
+            color: #1f1a17;
+        }
+
+        .card {
+            width: min(640px, 100%);
+            padding: 28px;
+            background: #fffaf2;
+            border: 1px solid rgba(31, 26, 23, 0.12);
+            border-radius: 18px;
+            box-shadow: 0 16px 42px rgba(31, 26, 23, 0.1);
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+        }
+
+        p {
+            margin: 0 0 12px;
+            line-height: 1.6;
+            color: #6f6259;
+        }
+
+        a {
+            color: #7c4d2a;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <main class="card">
+        <h1>Admin Disabled</h1>
+        <p>The CMS stack has been removed from this project.</p>
+        <p>Edit markdown content files manually in <a href="../content/">content/</a>.</p>
+        <p>Start with <a href="../content/home.md">content/home.md</a>.</p>
+    </main>
 </body>
 </html>

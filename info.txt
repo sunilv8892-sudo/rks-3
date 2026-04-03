@@ -1,7 +1,6 @@
-Decap CMS note:
-- Admin panel path: /admin
-- CMS config file: /admin/config.yml
+Content management note:
+- Admin panel is disabled: /admin
 - Content source: markdown files under /content
 - Committee and gallery entries: /content/committee and /content/gallery
 - Uploaded images: /images/uploads
-- Netlify Identity and Git Gateway must be enabled for editing
+- Edit files directly, then commit and push to deploy
