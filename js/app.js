@@ -17,6 +17,8 @@ const githubBackend = {
     branch: 'main'
 };
 
+const contactRecipient = 'gardentennisclubmysore@gmail.com';
+
 function routeIdentityTokenToAdmin() {
     const hash = window.location.hash || '';
     const search = window.location.search || '';
@@ -375,6 +377,81 @@ function limitItems(items, count) {
     return items.slice(0, count);
 }
 
+function getContactStatusElement(form) {
+    let statusEl = form.querySelector('.contact-status') || form.querySelector('#contact-message');
+    if (!statusEl) {
+        statusEl = document.createElement('p');
+        statusEl.className = 'contact-status';
+        statusEl.setAttribute('aria-live', 'polite');
+        form.appendChild(statusEl);
+    }
+    return statusEl;
+}
+
+function setContactStatus(form, message, isError) {
+    const statusEl = getContactStatusElement(form);
+    statusEl.textContent = message;
+    statusEl.classList.toggle('is-error', Boolean(isError));
+}
+
+function initContactForms() {
+    const forms = Array.from(document.querySelectorAll('form.contact-form, form#contact-form'));
+    if (!forms.length) return;
+
+    forms.forEach((form) => {
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalLabel = submitButton ? submitButton.textContent : '';
+
+            const formData = new FormData(form);
+            const name = String(formData.get('name') || '').trim();
+            const email = String(formData.get('email') || '').trim();
+            const message = String(formData.get('message') || '').trim();
+
+            if (!name || !email || !message) {
+                setContactStatus(form, 'Please fill in name, email, and message.', true);
+                return;
+            }
+
+            formData.set('_subject', 'Garden Tennis Club Website Enquiry');
+            formData.set('_captcha', 'false');
+            formData.set('_template', 'table');
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+            }
+
+            try {
+                const response = await fetch(`https://formsubmit.co/ajax/${contactRecipient}`, {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Mail request failed (${response.status})`);
+                }
+
+                setContactStatus(form, 'Enquiry sent successfully. Our team will contact you shortly.', false);
+                form.reset();
+            } catch (error) {
+                console.error('Failed to submit contact form:', error);
+                setContactStatus(form, 'Unable to send enquiry right now. Please email gardentennisclubmysore@gmail.com directly.', true);
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalLabel;
+                }
+            }
+        });
+    });
+}
+
 async function loadCommitteePreview(count) {
     try {
         const items = await fetchGithubCollection('content/committee');
@@ -400,6 +477,7 @@ async function boot() {
     initNavbar();
     initReveal();
     initHeroVideo();
+    initContactForms();
 
     await loadPageContent(page);
     if (page === 'committee') await loadCommittee();

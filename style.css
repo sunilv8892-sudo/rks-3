@@ -914,6 +914,17 @@ textarea {
     color: rgba(255, 255, 255, 0.56);
 }
 
+.contact-status {
+    margin: 0.45rem 0 0;
+    font-size: 0.88rem;
+    color: #d6f4cf;
+    min-height: 1.2rem;
+}
+
+.contact-status.is-error {
+    color: #ffd8cf;
+}
+
 .footer {
     padding: 1.2rem 0 2rem;
     background: #0a1710;

@@ -235,7 +235,7 @@
                         </div>
                         <div class="contact-item">
                             <span class="contact-label">Email</span>
-                            <p>info@gardentennisclub.com</p>
+                            <p>gardentennisclubmysore@gmail.com</p>
                         </div>
                         <div class="contact-item">
                             <span class="contact-label">Hours</span>
@@ -244,11 +244,15 @@
                     </div>
                 </div>
 
-                <form class="contact-form reveal">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea rows="5" placeholder="Tell us what kind of coaching or court access you are looking for." required></textarea>
+                <form class="contact-form reveal" action="https://formsubmit.co/gardentennisclubmysore@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Garden Tennis Club Website Enquiry">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="5" placeholder="Tell us what kind of coaching or court access you are looking for." required></textarea>
                     <button type="submit" class="btn btn-primary">Send Enquiry</button>
+                    <p class="contact-status" aria-live="polite"></p>
                     <p class="form-note">We usually respond within one business day.</p>
                 </form>
             </div>
