@@ -36,12 +36,12 @@ function renderCallbackPage(status, payload) {
     (function () {
       if (window.opener) {
         window.opener.postMessage(
-          'authorization:github:${status}:' + ${JSON.stringify(serializedPayload)},
+          'authorization:github:${status}:' + ${serializedPayload},
           '*'
         );
         window.setTimeout(function () {
           window.close();
-        }, 250);
+        }, 1000);
       }
     }());
   </script>
