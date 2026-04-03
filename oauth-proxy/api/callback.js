@@ -35,21 +35,25 @@ function renderCallbackPage(status, payload) {
 <body>
   <script>
     (function () {
-      if (window.opener) {
-        function receiveMessage() {
-          window.opener.postMessage(${callbackMessage}, '*');
-          window.removeEventListener('message', receiveMessage, false);
-          window.setTimeout(function () {
-            window.close();
-          }, 250);
-        }
+      var statusEl = document.getElementById('oauth-status');
 
-        window.addEventListener('message', receiveMessage, false);
-        window.opener.postMessage('authorizing:github', '*');
+      if (!window.opener) {
+        if (statusEl) {
+          statusEl.textContent = 'This callback was opened without Decap admin. Please close this tab and sign in from your site\'s /admin page.';
+        }
+        return;
       }
+
+      function receiveMessage() {
+        window.opener.postMessage(${callbackMessage}, '*');
+        window.removeEventListener('message', receiveMessage, false);
+      }
+
+      window.addEventListener('message', receiveMessage, false);
+      window.opener.postMessage('authorizing:github', '*');
     }());
   </script>
-  <p>Authorizing Decap CMS...</p>
+  <p id="oauth-status">Authorizing Decap CMS...</p>
 </body>
 </html>`;
 }
