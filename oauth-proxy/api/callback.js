@@ -34,24 +34,14 @@ function renderCallbackPage(status, payload) {
 <body>
   <script>
     (function () {
-      function sendResult() {
-        if (!window.opener) {
-          return;
-        }
-
+      if (window.opener) {
         window.opener.postMessage(
           'authorization:github:${status}:' + ${JSON.stringify(serializedPayload)},
           '*'
         );
-      }
-
-      window.addEventListener('message', function onMessage() {
-        window.removeEventListener('message', onMessage, false);
-        sendResult();
-      });
-
-      if (window.opener) {
-        window.opener.postMessage('authorizing:github', '*');
+        window.setTimeout(function () {
+          window.close();
+        }, 250);
       }
     }());
   </script>
