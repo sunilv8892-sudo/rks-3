@@ -133,7 +133,7 @@ module.exports = async function callbackHandler(req, res) {
 
   try {
     const origin = getPublicOrigin(req);
-    const redirectUri = `${origin}/callback?provider=github`;
+    const redirectUri = `${origin}/callback`;
     const token = await exchangeCodeForToken({
       clientId,
       clientSecret,
