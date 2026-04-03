@@ -814,6 +814,18 @@ textarea {
 .member-role {
     color: rgba(255, 255, 255, 0.76);
     font-size: 0.88rem;
+    margin-bottom: 0.35rem;
+}
+
+.member-bio {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.79rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .gallery-card {

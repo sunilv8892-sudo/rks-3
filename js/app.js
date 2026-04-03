@@ -263,16 +263,20 @@ function renderCommittee(items) {
         return;
     }
 
-    container.innerHTML = items.map((item) => `
+    container.innerHTML = items.map((item) => {
+        const details = item.bio || item.details || item.description || '';
+        return `
         <article class="committee-card reveal">
             <img class="committee-photo" src="${item.photo || defaultImage}" alt="${item.name || 'Committee member'}">
             <div class="committee-footer">
                 <span class="member-badge">Committee</span>
                 <h3 class="member-name">${item.name || 'Member'}</h3>
                 <p class="member-role">${item.role || ''}</p>
+                ${details ? `<p class="member-bio">${details}</p>` : ''}
             </div>
         </article>
-    `).join('');
+    `;
+    }).join('');
 
     initReveal();
 }

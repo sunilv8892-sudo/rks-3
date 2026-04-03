@@ -54,6 +54,7 @@ collections:
     fields:
       - { label: Name, name: name, widget: string }
       - { label: Role, name: role, widget: string }
+      - { label: Bio, name: bio, widget: text }
       - { label: Photo, name: photo, widget: image, required: false }
       - { label: Notes, name: body, widget: markdown, required: false }
 
