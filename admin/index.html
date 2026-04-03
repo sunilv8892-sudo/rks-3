@@ -48,42 +48,7 @@
         <p>Please wait while the dashboard initializes.</p>
     </main>
 
-    <script>
-        window.CMS_MANUAL_INIT = true;
-    </script>
+    <script src="/admin/config.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script>
-        (async function bootstrapCMS() {
-            try {
-                const response = await fetch('/admin/config.yml', { cache: 'no-cache' });
-                if (!response.ok) {
-                    throw new Error('Could not load /admin/config.yml');
-                }
-
-                const rawConfig = await response.text();
-                const runtimeBaseUrl = window.location.origin;
-
-                const runtimeConfig = rawConfig
-                    .replace('__CMS_BASE_URL__', runtimeBaseUrl)
-                    .replace('__CMS_SITE_DOMAIN__', window.location.hostname);
-
-                if (!window.CMS || typeof window.CMS.init !== 'function') {
-                    throw new Error('Decap CMS failed to load');
-                }
-
-                window.CMS.init({ config: runtimeConfig });
-            } catch (error) {
-                console.error('Failed to initialize Decap CMS:', error);
-                document.body.innerHTML = '';
-                const box = document.createElement('main');
-                box.className = 'card';
-                box.innerHTML =
-                    '<h1>CMS failed to load</h1>' +
-                    '<p>Check admin/config.yml and API auth endpoints.</p>' +
-                    '<p>Error: ' + (error.message || 'Unknown error') + '</p>';
-                document.body.appendChild(box);
-            }
-        }());
-    </script>
 </body>
 </html>

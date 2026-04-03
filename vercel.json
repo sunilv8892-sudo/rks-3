@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/auth",
+      "destination": "/api/cms/auth"
+    },
+    {
+      "source": "/callback",
+      "destination": "/api/cms/callback"
+    }
+  ]
+}
