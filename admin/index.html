@@ -48,6 +48,9 @@
         <p>Please wait while the dashboard initializes.</p>
     </main>
 
+    <script>
+        window.CMS_MANUAL_INIT = true;
+    </script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
         (async function bootstrapCMS() {
@@ -63,6 +66,10 @@
                 const runtimeConfig = rawConfig
                     .replace('__CMS_BASE_URL__', runtimeBaseUrl)
                     .replace('__CMS_SITE_DOMAIN__', window.location.hostname);
+
+                if (!window.CMS || typeof window.CMS.init !== 'function') {
+                    throw new Error('Decap CMS failed to load');
+                }
 
                 window.CMS.init({ config: runtimeConfig });
             } catch (error) {
