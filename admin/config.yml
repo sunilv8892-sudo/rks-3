@@ -2,7 +2,7 @@ backend:
   name: github
   repo: sunilv8892-sudo/rks-3
   branch: main
-  base_url: __CMS_BASE_URL__
+  base_url: https://rks-3.vercel.app
   auth_endpoint: api/cms/auth
 
 media_folder: images/uploads
@@ -79,59 +79,3 @@ collections:
       - { label: Photo, name: photo, widget: image, required: false }
       - { label: Description, name: description, widget: text }
       - { label: Notes, name: body, widget: markdown, required: false }
-
-  - name: site_files
-    label: Website Files (Advanced)
-    editor:
-      preview: false
-    files:
-      - label: Home HTML
-        name: index_html
-        file: index.html
-        fields:
-          - { label: HTML, name: body, widget: code, default_language: html, output_code_only: true }
-      - label: About HTML
-        name: about_html
-        file: about.html
-        fields:
-          - { label: HTML, name: body, widget: code, default_language: html, output_code_only: true }
-      - label: Facilities HTML
-        name: facilities_html
-        file: facilities.html
-        fields:
-          - { label: HTML, name: body, widget: code, default_language: html, output_code_only: true }
-      - label: Gallery HTML
-        name: gallery_html
-        file: gallery.html
-        fields:
-          - { label: HTML, name: body, widget: code, default_language: html, output_code_only: true }
-      - label: Committee HTML
-        name: committee_html
-        file: committee.html
-        fields:
-          - { label: HTML, name: body, widget: code, default_language: html, output_code_only: true }
-      - label: Terms HTML
-        name: terms_html
-        file: terms.html
-        fields:
-          - { label: HTML, name: body, widget: code, default_language: html, output_code_only: true }
-      - label: Contact HTML
-        name: contact_html
-        file: contact.html
-        fields:
-          - { label: HTML, name: body, widget: code, default_language: html, output_code_only: true }
-      - label: Main JS
-        name: app_js
-        file: js/app.js
-        fields:
-          - { label: JavaScript, name: body, widget: code, default_language: javascript, output_code_only: true }
-      - label: Main CSS
-        name: css_main
-        file: style.css
-        fields:
-          - { label: CSS, name: body, widget: code, default_language: css, output_code_only: true }
-      - label: Secondary CSS
-        name: css_secondary
-        file: styles.css
-        fields:
-          - { label: CSS, name: body, widget: code, default_language: css, output_code_only: true }
