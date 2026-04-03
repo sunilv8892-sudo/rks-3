@@ -37,7 +37,7 @@ module.exports = function authHandler(req, res) {
   const privateRepo = process.env.GITHUB_REPO_PRIVATE != null && process.env.GITHUB_REPO_PRIVATE !== '0';
   const scope = privateRepo ? 'repo,user' : 'public_repo,user';
   const origin = getPublicOrigin(req);
-  const redirectUri = `${origin}/callback`;
+  const redirectUri = `${origin}/callback?provider=github`;
   const state = randomState();
 
   res.statusCode = 302;

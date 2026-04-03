@@ -147,6 +147,14 @@ module.exports = async function callbackHandler(req, res) {
     return;
   }
 
+  const provider = String(req.query.provider || '');
+  if (provider !== 'github') {
+    res.statusCode = 400;
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.end('Invalid provider');
+    return;
+  }
+
   const clientId = process.env.GITHUB_OAUTH_ID;
   const clientSecret = process.env.GITHUB_OAUTH_SECRET;
   if (!clientId || !clientSecret) {
@@ -176,7 +184,7 @@ module.exports = async function callbackHandler(req, res) {
 
   try {
     const origin = getPublicOrigin(req);
-    const redirectUri = `${origin}/callback`;
+    const redirectUri = `${origin}/callback?provider=github`;
     const token = await exchangeCodeForToken({
       clientId,
       clientSecret,
