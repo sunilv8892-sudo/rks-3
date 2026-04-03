@@ -484,6 +484,7 @@ textarea {
 .content-rich,
 .text-muted {
     color: var(--muted);
+    overflow-wrap: anywhere;
 }
 
 .content-rich p {
@@ -1053,6 +1054,15 @@ textarea {
         padding: 0.85rem 0;
     }
 
+    body.nav-open {
+        overflow: hidden;
+    }
+
+    .brand-mark {
+        width: 3rem;
+        height: 3rem;
+    }
+
     .brand-name {
         font-size: 1.3rem;
     }
@@ -1073,20 +1083,29 @@ textarea {
         display: none;
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
-        padding: 1.15rem;
+        gap: 0.85rem;
+        padding: 1rem;
         border-radius: 20px;
         background: rgba(10, 23, 15, 0.95);
         border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: var(--shadow-strong);
+        max-height: calc(100vh - 7.5rem);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
     }
 
     .nav-links.is-open {
         display: flex;
     }
 
+    .nav-link {
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+
     .hero {
-        min-height: auto;
+        min-height: 92vh;
     }
 
     .hero-video-desktop {
@@ -1095,24 +1114,26 @@ textarea {
 
     .hero-video-mobile {
         display: block;
+        object-position: center 22%;
     }
 
     .hero-layout {
-        padding: 8rem 0 3rem;
+        padding: 7.3rem 0 2.7rem;
         gap: 1.2rem;
     }
 
     .page-hero-layout {
-        padding: 7.8rem 0 2.7rem;
+        padding: 7.2rem 0 2.4rem;
         gap: 1rem;
     }
 
     .hero-title {
-        font-size: clamp(2.8rem, 16vw, 4.4rem);
+        font-size: clamp(2.5rem, 12.6vw, 3.8rem);
     }
 
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.98rem;
+        line-height: 1.58;
     }
 
     .hero-actions,
@@ -1121,34 +1142,127 @@ textarea {
         align-items: stretch;
     }
 
-    .hero-stats,
+    .hero-actions .btn {
+        width: 100%;
+    }
+
     .services-grid,
     .experience-grid {
         grid-template-columns: 1fr;
     }
 
-    .committee-grid,
-    .gallery-grid {
+    .hero-stats {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .committee-grid,
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
     .member-name {
-        font-size: 0.95rem;
+        font-size: 1.02rem;
     }
 
     .member-role {
-        font-size: 0.76rem;
+        font-size: 0.84rem;
     }
 
     .member-badge {
-        font-size: 0.58rem;
+        font-size: 0.62rem;
+    }
+
+    .member-bio {
+        font-size: 0.82rem;
+        -webkit-line-clamp: 4;
     }
 
     .section {
-        padding: 5rem 0;
+        padding: 4.45rem 0;
+    }
+
+    .section-heading {
+        margin-bottom: 2rem;
     }
 
     .section-title {
-        font-size: clamp(2.2rem, 12vw, 3.4rem);
+        font-size: clamp(2rem, 10.8vw, 3rem);
+    }
+
+    .content-card,
+    .contact-form {
+        padding: 1.1rem;
+    }
+
+    .gallery-details {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 16px;
+        padding: 0.95rem;
+    }
+
+    .footer-copy {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container,
+    .nav-container {
+        width: min(var(--container), calc(100% - 1.25rem));
+    }
+
+    .brand-mark {
+        width: 2.7rem;
+        height: 2.7rem;
+    }
+
+    .brand-name {
+        font-size: 1.14rem;
+    }
+
+    .navbar {
+        padding: 0.7rem 0;
+    }
+
+    .hero-layout {
+        padding: 6.8rem 0 2.2rem;
+    }
+
+    .page-hero-layout {
+        padding: 6.6rem 0 2.2rem;
+    }
+
+    .hero-title {
+        font-size: clamp(2.2rem, 11.8vw, 3.1rem);
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-panel,
+    .content-card,
+    .contact-form,
+    .committee-footer {
+        border-radius: 16px;
+    }
+
+    .btn {
+        min-height: 3rem;
+    }
+
+    .gallery-title {
+        font-size: 0.95rem;
+    }
+
+    .gallery-caption,
+    .gallery-details,
+    .facility-text {
+        font-size: 0.86rem;
     }
 }

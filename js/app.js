@@ -42,10 +42,17 @@ function initNavbar() {
     window.addEventListener('scroll', setNavbarState, { passive: true });
 
     if (!hamburger || !navLinks) return;
-    hamburger.addEventListener('click', () => {
-        const isOpen = navLinks.classList.toggle('is-open');
+
+    const setNavOpen = (isOpen) => {
+        navLinks.classList.toggle('is-open', isOpen);
         hamburger.classList.toggle('is-active', isOpen);
         hamburger.setAttribute('aria-expanded', String(isOpen));
+        document.body.classList.toggle('nav-open', isOpen);
+    };
+
+    hamburger.addEventListener('click', () => {
+        const isOpen = !navLinks.classList.contains('is-open');
+        setNavOpen(isOpen);
     });
 
     document.querySelectorAll('.nav-link').forEach((link) => {
@@ -54,10 +61,26 @@ function initNavbar() {
         }
 
         link.addEventListener('click', () => {
-            navLinks.classList.remove('is-open');
-            hamburger.classList.remove('is-active');
-            hamburger.setAttribute('aria-expanded', 'false');
+            setNavOpen(false);
         });
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!navLinks.classList.contains('is-open')) return;
+        const target = event.target;
+        if (!(target instanceof Node)) return;
+
+        const clickedNav = navLinks.contains(target);
+        const clickedButton = hamburger.contains(target);
+        if (!clickedNav && !clickedButton) {
+            setNavOpen(false);
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            setNavOpen(false);
+        }
     });
 }
 
