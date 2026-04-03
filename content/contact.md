@@ -1,8 +1,9 @@
 ---
-title: Visit the club
+title: Contact Us
 ---
-Garden Tennis Club, 123 Court Street  
-+1 (555) 123-4567  
-info@gardentennisclub.com
+Address with map: To be updated with final custom domain map link and club location details.  
+Phone numbers: To be updated.  
+Email: gardentennisclubmysore@gmail.com  
+Social media links: To be updated.
 
-Use the contact form for membership, coaching, and booking enquiries.
+Use the contact form for membership, coaching, events, and booking enquiries.

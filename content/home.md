@@ -1,6 +1,6 @@
 ---
-title: A calmer, sharper tennis experience.
+title: The Garden Tennis Club, Mysuru
 ---
-Premium courts, structured coaching, and a club atmosphere built for members who want quality without noise.
+A historic club with roots in the colonial era, formally registered in 1958, and committed to sporting excellence and community engagement.
 
-Garden Tennis Club creates a refined tennis environment where performance and comfort work together.
+The Garden Tennis Club promotes tennis, table tennis, and a broad range of cultural and recreational activities for holistic member development.
