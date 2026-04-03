@@ -210,12 +210,25 @@ async function loadPageContent(pageKey) {
         const raw = await fetchText(path);
         const { data, body } = parseFrontmatter(raw);
         const bodyHtml = markdownToHtml(body);
-        const bodyText = body.replace(/\r/g, '').split('\n').filter(Boolean).join(' ').trim();
+        const plainBodyText = body
+            .replace(/\r/g, '')
+            .split('\n')
+            .map((line) => line
+                .replace(/^#{1,6}\s*/, '')
+                .replace(/^\s*[-*]\s+/, '')
+                .replace(/^\s*\d+\.\s+/, '')
+                .trim())
+            .filter(Boolean)
+            .join(' ')
+            .trim();
+
+        const firstSentence = plainBodyText.split(/(?<=[.!?])\s+/)[0] || plainBodyText;
+        const summaryText = (data.summary || firstSentence || '').trim();
 
         if (titleEl && data.title) titleEl.textContent = data.title;
         if (contentEl && bodyHtml) {
             if (contentEl.tagName === 'P') {
-                contentEl.textContent = bodyText;
+                contentEl.textContent = summaryText;
             } else {
                 contentEl.innerHTML = bodyHtml;
             }

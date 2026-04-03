@@ -1,6 +1,7 @@
 ---
 title: Facilities and Member Spaces
 photo: ""
+summary: Comprehensive sports, fitness, indoor leisure, and clubhouse facilities for members.
 ---
 The Garden Tennis Club, Mysuru, offers a comprehensive range of facilities designed to support sporting excellence and holistic member engagement.
 

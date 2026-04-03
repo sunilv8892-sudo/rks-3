@@ -1,5 +1,6 @@
 ---
-title: Club terms
+title: Membership and Terms
+summary: Membership categories, fee structure, eligibility, withdrawal, and termination guidelines.
 ---
 Membership, coaching access, and facility usage are governed by current club rules and committee decisions.
 

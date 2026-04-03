@@ -18,18 +18,21 @@ collections:
         file: content/home.md
         fields:
           - { label: Title, name: title, widget: string }
+          - { label: Summary, name: summary, widget: string }
           - { label: Content, name: body, widget: markdown }
       - label: About
         name: about
         file: content/about.md
         fields:
           - { label: Title, name: title, widget: string }
+          - { label: Summary, name: summary, widget: string }
           - { label: Content, name: body, widget: markdown }
       - label: Facilities Page
         name: facilities
         file: content/facilities.md
         fields:
           - { label: Title, name: title, widget: string }
+          - { label: Summary, name: summary, widget: string }
           - { label: Hero Photo, name: photo, widget: image, required: false }
           - { label: Content, name: body, widget: markdown }
       - label: Terms
@@ -37,12 +40,14 @@ collections:
         file: content/terms.md
         fields:
           - { label: Title, name: title, widget: string }
+          - { label: Summary, name: summary, widget: string }
           - { label: Content, name: body, widget: markdown }
       - label: Contact
         name: contact
         file: content/contact.md
         fields:
           - { label: Title, name: title, widget: string }
+          - { label: Summary, name: summary, widget: string }
           - { label: Content, name: body, widget: markdown }
 
   - name: committee

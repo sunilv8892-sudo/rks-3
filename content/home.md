@@ -1,5 +1,6 @@
 ---
 title: The Garden Tennis Club, Mysuru
+summary: A historic Mysuru club dedicated to tennis, recreation, and community engagement.
 ---
 A historic club with roots in the colonial era, formally registered in 1958, and committed to sporting excellence and community engagement.
 

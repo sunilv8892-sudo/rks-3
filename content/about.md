@@ -1,5 +1,6 @@
 ---
 title: About the Garden Tennis Club
+summary: Legacy, mission, vision, and milestones of the Garden Tennis Club, Mysuru.
 ---
 The Garden Tennis Club, situated in Mysuru, is an institution of historical legacy and cultural significance. Its origins trace back to the colonial period when it was patronized by the British, and later stewarded by the distinguished Wodeyars of Mysuru.
 
