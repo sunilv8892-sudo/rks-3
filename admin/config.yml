@@ -2,7 +2,7 @@ backend:
   name: github
   repo: sunilv8892-sudo/rks-3
   branch: main
-  base_url: https://rks-3.vercel.app
+  base_url: https://rks-3-67g2.vercel.app
   auth_endpoint: /auth
   site_domain: rks-3
 
