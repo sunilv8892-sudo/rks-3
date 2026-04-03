@@ -44,13 +44,42 @@ function renderCallbackPage(status, payload) {
         return;
       }
 
-      function receiveMessage() {
+      var completed = false;
+      var attempts = 0;
+
+      function sendResult() {
         window.opener.postMessage(${callbackMessage}, '*');
+      }
+
+      function receiveMessage() {
+        completed = true;
+        if (statusEl) {
+          statusEl.textContent = 'Finishing sign in...';
+        }
+        sendResult();
         window.removeEventListener('message', receiveMessage, false);
       }
 
       window.addEventListener('message', receiveMessage, false);
       window.opener.postMessage('authorizing:github', '*');
+
+      var retryTimer = window.setInterval(function () {
+        if (completed) {
+          window.clearInterval(retryTimer);
+          return;
+        }
+
+        attempts += 1;
+        window.opener.postMessage('authorizing:github', '*');
+        sendResult();
+
+        if (attempts >= 8) {
+          window.clearInterval(retryTimer);
+          if (statusEl) {
+            statusEl.textContent = 'Still waiting for Decap admin. If this does not close, return to /admin and click Login with GitHub again.';
+          }
+        }
+      }, 500);
     }());
   </script>
   <p id="oauth-status">Authorizing Decap CMS...</p>
